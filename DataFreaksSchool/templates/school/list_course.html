@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Your Courses
+{% endblock %}
+
+{% block content %}
+
+  {% if courses %}
+      <div class="card">
+          <div class="card-header">
+              <strong class="card-title">List of Courses</strong>
+          </div>
+          <div class="table-stats order-table ov-h">
+              <table class="table">
+                  <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Course</th>
+                        <th>Number of Students</th>
+                        <th>Opciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for course in courses %}
+                      <tr>
+                        <td><a href="">{{ course.id }}</a></td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.students | length }}</td>
+                
+                        <td>
+                          <a href="" class="btn btn-primary">Editar</a>
+                          <a href="" class="btn btn-danger">Eliminar</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      {% else %}
+        <h1>No existen autores registrados</h1>
+      {% endif %}
+
+{% endblock %}
