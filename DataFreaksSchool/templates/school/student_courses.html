@@ -17,21 +17,15 @@
                       <tr>
                         <th>ID</th>
                         <th>Course</th>
-                        <th>Number of Students</th>
-                        <th>Opciones</th>
+                        <th>Note</th>
                       </tr>
                   </thead>
                   <tbody>
                     {% for course in courses %}
                       <tr>
-                        <td><a href="{% url 'school:students_list' %}">{{ course.id }}</a></td>
-                        <td><a href="{% url 'school:students_list' %}">{{ course.name }}</a></td>
-                        <td>{{ course.students | length }}</td>
-                
-                        <td>
-                          <a href="" class="btn btn-primary">Editar</a>
-                          <a href="" class="btn btn-danger">Eliminar</a>
-                        </td>
+                        <td><a href="{% url 'school:students_course' %}">{{ course.id }}</a></td>
+                        <td><a href="{% url 'school:students_course' %}">{{ course.course }}</a></td>
+                        <td>{{ course.note }}</td>
                       </tr>
                     {% endfor %}
                   </tbody>

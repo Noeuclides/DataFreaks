@@ -1,36 +1,36 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Your Courses
+  Your Students
 {% endblock %}
 
 {% block content %}
 
-  {% if courses %}
+  {% if students %}
       <div class="card">
           <div class="card-header">
-              <strong class="card-title">List of Courses</strong>
+              <strong class="card-title">List of Students</strong>
           </div>
           <div class="table-stats order-table ov-h">
               <table class="table">
                   <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Course</th>
-                        <th>Number of Students</th>
+                        <th>Student</th>
+                        <th>Note</th>
                         <th>Opciones</th>
                       </tr>
                   </thead>
                   <tbody>
-                    {% for course in courses %}
+                    {% for student in students %}
                       <tr>
-                        <td><a href="{% url 'school:students_list' %}">{{ course.id }}</a></td>
-                        <td><a href="{% url 'school:students_list' %}">{{ course.name }}</a></td>
-                        <td>{{ course.students | length }}</td>
+                        <td><a href="{% url 'school:students_list' %}">{{ student.id }}</a></td>
+                        <td>{{ student.student }}</td>
+                        <td>{{ student.note }}</td>
                 
                         <td>
-                          <a href="" class="btn btn-primary">Editar</a>
-                          <a href="" class="btn btn-danger">Eliminar</a>
+                          <a href="{% url 'school:student_note' student.id %}" class="btn btn-primary">Edit</a>
+                          <a href="" class="btn btn-danger">Delete</a>
                         </td>
                       </tr>
                     {% endfor %}
@@ -39,7 +39,7 @@
           </div>
       </div>
       {% else %}
-        <h1>No existen autores registrados</h1>
+        <h1>There is no students in this class</h1>
       {% endif %}
 
 {% endblock %}

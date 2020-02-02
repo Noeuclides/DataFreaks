@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
 from apps.school.views import school, student, teacher
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('apps.school.urls', 'school'))),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', school.SignUpView.as_view(), name='signup'),
-    path('accounts/signup/student/', student.StudentSignUpView.as_view(), name='student_signup'),
-    path('accounts/signup/teacher/', teacher.TeacherSignUpView.as_view(), name='teacher_signup'),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    path('', school.SignUpView.as_view(), name='signup'),
+    path('signup/student/', student.StudentSignUpView.as_view(), name='student_signup'),
+    path('signup/teacher/', teacher.TeacherSignUpView.as_view(), name='teacher_signup'),
+    path('login/', school.Login.as_view(), name = 'login'),
+    path('logout/', login_required(school.userLogout) , name = 'logout'),
 
 ]

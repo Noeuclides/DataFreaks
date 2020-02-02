@@ -36,7 +36,7 @@ class Student(models.Model):
 class Note(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='notes')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='notes')
-    note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(5.0)], blank=True, null=True)
+    note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(5.0)], default=0.0, blank=True, null=True)
 
     def __str__(self):
         return str(self.note)

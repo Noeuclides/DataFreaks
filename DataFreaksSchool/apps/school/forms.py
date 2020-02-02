@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from .models import Student, Course, CustomUser, Note, Teacher
@@ -59,3 +60,30 @@ class TeacherSignUpForm(UserCreationForm):
         print(teacher.course_set.all())
         print('USER ', user)
         return user
+
+class FormularioLogin(AuthenticationForm):
+    print("FORMULOGIN!!")
+    def __init__(self, *args, **kwargs):
+        super(FormularioLogin, self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'username'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['placeholder'] = 'password'
+
+
+class NoteForm(forms.ModelForm):
+    note = forms.FloatField( ) 
+    class Meta:
+        model = Note
+        fields = ('note',)
+        label = {
+            'note':'Note'
+        }
+        widgets = {
+            'titulo': forms.NumberInput(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese título de libro'
+                }
+            )
+        }
