@@ -18,7 +18,7 @@ class StudentSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('school:student_signup')
+        return redirect('school:student_courses')
 
 
 class ListCourseView(ListView):
@@ -38,9 +38,13 @@ class StudentsListView(ListView):
     context_object_name = 'students'
     success_url = reverse_lazy('school:students_course')
 
+
     def get_queryset(self):
         print(self.request.user, type(self.request.user.id))
         courses = Note.objects.filter(student=self.request.user.id)
+        pi = Student.objects.prefetch_related('courses')
+        print(courses)
+        print(pi)
         for course in courses:
             print(course.course)
             print(course.student)

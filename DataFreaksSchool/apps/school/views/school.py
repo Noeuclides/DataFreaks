@@ -28,29 +28,28 @@ def home(request):
 
 
 class Login(FormView):
-    print("LOGIN!!!")
     template_name = 'registration/login.html'
     form_class = FormularioLogin
-    print(form_class)
-    success_url = reverse_lazy('school:teacher_list')
-
-
 
 
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def dispatch(self,request,*args,**kwargs):
-        print("ALGO ACA!!!")
         if request.user.is_authenticated:
-            print("IFFFF", self.get_success_url())
             return HttpResponseRedirect(self.get_success_url())
         else:
             return super(Login,self).dispatch(request,*args,**kwargs)
 
     def form_valid(self,form):
-        print("FORM VALID LOGIN")
-        login(self.request,form.get_user())
+        user = form.get_user()
+        login(self.request,user)
         return super(Login,self).form_valid(form)
+
+    def get_success_url(self):
+        if self.request.user.is_teacher:
+            return reverse_lazy('school:teacher_list')
+        else:
+            return reverse_lazy('school:student_courses')
 
 
 def userLogout(request):
