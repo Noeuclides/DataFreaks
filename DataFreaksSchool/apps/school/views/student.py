@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -27,27 +27,21 @@ class ListCourseView(ListView):
     context_object_name = 'courses'
 
     def get_queryset(self):
-        print(self.request.user, type(self.request.user.id))
-        course = Note.objects.filter(student=self.request.user.id)
-        return course
+        print(self.request.user)
+        my_notes = Note.objects.filter(student=self.request.user.id)      
+        all_notes = Note.objects.all()
+        courses = {}
+        for note in all_notes:
+            for mynote in my_notes:
+                if note.course == mynote.course:
+                    if mynote.course in courses.keys():
+                        student = note.student
+                        courses[mynote.course][1].append(student)
+                    else:
+                        students, course = [], []
+                        students.append(note.student)
+                        course = [note, students]
+                        courses[mynote.course] = course
 
-
-class StudentsListView(ListView):
-    model = Student
-    template_name = 'school/students_course.html'
-    context_object_name = 'students'
-    success_url = reverse_lazy('school:students_course')
-
-
-    def get_queryset(self):
-        print(self.request.user, type(self.request.user.id))
-        courses = Note.objects.filter(student=self.request.user.id)
-        pi = Student.objects.prefetch_related('courses')
         print(courses)
-        print(pi)
-        for course in courses:
-            print(course.course)
-            print(course.student)
-
         return courses
-

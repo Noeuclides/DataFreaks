@@ -15,17 +15,21 @@
               <table class="table">
                   <thead>
                       <tr>
-                        <th>ID</th>
                         <th>Course</th>
                         <th>Note</th>
+                        <th>Students</th>
                       </tr>
                   </thead>
                   <tbody>
-                    {% for course in courses %}
+                    {% for course, students in courses.items %}
                       <tr>
-                        <td><a href="{% url 'school:students_course' %}">{{ course.id }}</a></td>
-                        <td><a href="{% url 'school:students_course' %}">{{ course.course }}</a></td>
-                        <td>{{ course.note }}</td>
+                        <td><a href="">{{ course.name }}</a></td>
+                        <td>{{ students.0 }}</td>
+                        <td>
+                          {% for student in students.1 %}
+                          <li>{{ student }}</li>
+                          {% endfor %}
+                        </td>
                       </tr>
                     {% endfor %}
                   </tbody>
@@ -33,7 +37,7 @@
           </div>
       </div>
       {% else %}
-        <h1>No existen autores registrados</h1>
+        <h1>There is no Courses</h1>
       {% endif %}
 
 {% endblock %}
