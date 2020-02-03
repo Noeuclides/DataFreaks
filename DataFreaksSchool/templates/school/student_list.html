@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Your Students
+  Your Students {{ students }}
 {% endblock %}
 
 {% block content %}
@@ -22,18 +22,18 @@
                       </tr>
                   </thead>
                   <tbody>
-                    {% for student in students %}
+                    {{ students }}
                       <tr>
-                        <td><a href="{% url 'school:students_list' %}">{{ student.id }}</a></td>
-                        <td>{{ student.student }}</td>
-                        <td>{{ student.note }}</td>
+                        <td><a href="{%url 'school:student_note' pk=students.id%}">{{ students.id }}</a></td>
+                        <td>{{ students.name }}</td>
+                        <td>{{ students.note }}</td>
                 
                         <td>
-                          <a href="{% url 'school:student_note' student.id %}" class="btn btn-primary">Edit</a>
+                          <a href="" class="btn btn-primary">Edit</a>
                           <a href="" class="btn btn-danger">Delete</a>
                         </td>
                       </tr>
-                    {% endfor %}
+                    
                   </tbody>
               </table>
           </div>
