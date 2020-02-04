@@ -21,25 +21,47 @@ class TeacherSignUpView(CreateView):
 
 
 class ListCourseView(ListView):
-    model = Course
+    model = Note
     template_name = 'school/list_course.html'
     context_object_name = 'courses'
 
     def get_queryset(self):
-        print(self.request.user.id, type(self.request.user.id))
-        print(Course.objects.filter(teacher=self.request.user.id))
-        return Course.objects.filter(teacher=self.request.user.id)
+        print(self.request.user.id, type(self.request.user.id))        
+        courses = Course.objects.filter(teacher=self.request.user.id)
+        listcourse = []
+        for course in courses:
+            note = Note.objects.filter(course=course)
+            for n in note:
+                listcourse.append(n.course)
+            
+        return list(set(listcourse))
 
 
 class DetailCourseView(DetailView):
-    model = Course
+    model = Note
     template_name = 'school/student_list.html'
     context_object_name = 'students'
 
-    def get_queryset(self):
-        print(self.request.user.id, type(self.request.user.id))
+    # def get_queryset(self):
+    #     print(self.request.user, type(self.request.user.id))
+    #     obj = self.kwargs['pk']
+    #     print(obj)
+    #     note = Note.objects.filter(course=obj)
+    #     for n in note:
+    #         print(n.student)
+    #     print(Course.objects.filter(teacher=self.request.user.id))
+    #     return Course.objects.filter(teacher=self.request.user.id)
+
+
+    def get_object(self, **kwargs):
+        obj = self.kwargs['pk']
+        print(obj)
+        note = Note.objects.filter(course=obj)
+        for n in note:
+            print(n.student)
         print(Course.objects.filter(teacher=self.request.user.id))
-        return Course.objects.filter(teacher=self.request.user.id)
+        return note
+
 
 class NoteView(UpdateView):
     model = Note
