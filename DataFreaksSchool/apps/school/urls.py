@@ -10,5 +10,5 @@ urlpatterns = [
 
     #path('students/course/<int:pk>', login_required(student.StudentsCourseView.as_view()), name='students_course'),
     #path('student/', login_required(student.StudentSignUpView.as_view()), name='student_signup'),
-    path('student/courses', login_required(student.ListCourseView.as_view()), name='student_courses'),
+    path('student/courses/', login_required(student.ListCourseView.as_view()), name='student_courses'),
 ]

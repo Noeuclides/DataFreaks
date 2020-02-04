@@ -12,7 +12,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{% url 'school:students_list' %}" method="POST">
+      <form action="" method="POST">
+        {{ object.course }}
+        {{ form.instance }}
         {% csrf_token %}
         <div class="modal-body">
           {{ form.as_p }}
