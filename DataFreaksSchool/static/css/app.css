@@ -1,5 +1,6 @@
 .logo {
-  font-family: 'Clicker Script', cursive;
+  font-family: 'Ruda', sans-serif;
+  font-size: calc(12px + 5vw);
 }
 
 .logo a {

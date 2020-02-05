@@ -42,6 +42,6 @@ class ListCourseView(ListView):
                         students.append(note.student)
                         course = [note, students]
                         courses[mynote.course] = course
-
+        courses['student'] = self.request.user
         print(courses)
         return courses

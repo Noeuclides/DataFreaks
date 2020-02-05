@@ -7,20 +7,18 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Creacion de Libro</h2>
+        <h2 class="modal-title">Edit {{ object.course }} Note</h2>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form action="" method="POST">
-        {{ object.course }}
-        {{ form.instance }}
         {% csrf_token %}
         <div class="modal-body">
           {{ form.as_p }}
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger" href="{% url 'school:students_list' object.course.pk %}">Cancelar</button>
           <button class="btn btn-primary" type="submit">Confirmar</button>
         </div>
       </form>

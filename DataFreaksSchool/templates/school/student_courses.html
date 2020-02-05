@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Your Courses
+   Courses
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
   {% if courses %}
       <div class="card">
           <div class="card-header">
-              <strong class="card-title">List of Courses</strong>
+              <strong class="card-title">{{ courses.student }} Courses</strong>
           </div>
           <div class="table-stats order-table ov-h">
               <table class="table">
@@ -17,14 +17,16 @@
                       <tr>
                         <th>Course</th>
                         <th>Note</th>
+                        <th>Teacher</th>
                         <th>Students</th>
                       </tr>
                   </thead>
                   <tbody>
                     {% for course, students in courses.items %}
                       <tr>
-                        <td><a href="">{{ course.name }}</a></td>
+                        <td>{{ course.name }}</td>
                         <td>{{ students.0 }}</td>
+                        <td>{{ course.teacher }}</td>
                         <td>
                           {% for student in students.1 %}
                           <li>{{ student }}</li>
@@ -37,7 +39,7 @@
           </div>
       </div>
       {% else %}
-        <h1>There is no Courses</h1>
+        <h1>You don't have any courses</h1>
       {% endif %}
 
 {% endblock %}

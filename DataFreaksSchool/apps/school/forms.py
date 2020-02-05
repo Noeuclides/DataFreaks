@@ -11,12 +11,12 @@ class StudentSignUpForm(UserCreationForm):
         widget = forms.CheckboxSelectMultiple,
         required= True
     )
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+
 
     class Meta:
         model = CustomUser
         fields = ('full_name', 'username')
+ 
 
     @transaction.atomic
     def save(self):
@@ -40,8 +40,7 @@ class TeacherSignUpForm(UserCreationForm):
         widget = forms.CheckboxSelectMultiple,
         required= True
     )
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ('full_name', 'username')
